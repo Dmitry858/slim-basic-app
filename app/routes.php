@@ -1,15 +1,10 @@
 <?php
 use Slim\App;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use App\Controllers\MainController;
 
-return function(App $app) {
-    $app->get('/page', function (Request $request, Response $response) {
-        $title = 'Внутренняя страница';
-        return view($response, 'page', compact('title'));
-    });
+return function(App $app)
+{
+    $app->get('/{slug}', [MainController::class, 'page']);
 
-    $app->get('/', function (Request $request, Response $response) {
-        return view($response, 'home');
-    });
+    $app->get('/', [MainController::class, 'index']);
 };
