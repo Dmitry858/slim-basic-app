@@ -5,7 +5,8 @@
         "php-di/php-di": "^6.3",
         "eftec/bladeone": "^4.1",
         "php-di/slim-bridge": "^3.1",
-        "illuminate/support": "^8.64"
+        "illuminate/support": "^8.64",
+        "illuminate/database": "^8.64"
     },
     "autoload": {
         "files": [
