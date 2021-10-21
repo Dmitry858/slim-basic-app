@@ -29,6 +29,14 @@ if (!function_exists('app_path'))
     }
 }
 
+if (!function_exists('database_path'))
+{
+    function database_path($path = '')
+    {
+        return base_path("database/{$path}");
+    }
+}
+
 if (!function_exists('throw_when'))
 {
     function throw_when(bool $fails, string $message, string $exception = Exception::class)

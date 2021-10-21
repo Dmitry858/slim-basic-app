@@ -6,7 +6,8 @@
         "eftec/bladeone": "^4.1",
         "php-di/slim-bridge": "^3.1",
         "illuminate/support": "^8.64",
-        "illuminate/database": "^8.64"
+        "illuminate/database": "^8.64",
+        "robmorgan/phinx": "^0.12.9"
     },
     "autoload": {
         "files": [
