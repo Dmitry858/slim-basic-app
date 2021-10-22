@@ -2,7 +2,8 @@
 
 return [
     'paths' => [
-        'migrations' => database_path('migrations')
+        'migrations' => database_path('migrations'),
+        'seeds' => database_path('seeders')
     ],
    'environments' => [
        'default_migration_table' => 'migrations_log',
