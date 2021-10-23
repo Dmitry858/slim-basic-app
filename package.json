@@ -1,0 +1,26 @@
+{
+    "name": "slim-app",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Dmitry858/slim-basic-app.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Dmitry858/slim-basic-app/issues"
+    },
+    "homepage": "https://github.com/Dmitry858/slim-basic-app#readme",
+    "devDependencies": {
+        "laravel-mix": "^6.0.34",
+        "resolve-url-loader": "^4.0.0",
+        "sass": "^1.43.3",
+        "sass-loader": "^12.2.0"
+    }
+}
