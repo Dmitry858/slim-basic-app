@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\User;
+
 class RegisterController
 {
     public function show($response)
@@ -9,10 +11,47 @@ class RegisterController
         return view($response, 'auth.register');
     }
 
-    public function store($response)
+    public function store($request, $response)
     {
-        echo 'register';
+        $input = $request->getParsedBody();
+        $hasErrors = false;
+        foreach ($input as $value)
+        {
+            if (trim($value) === '')
+            {
+                $hasErrors = true;
+                echo 'Все поля обязательные для заполнения';
+                echo '<br>';
+                break;
+            }
+        }
 
-        return $response;
+        if ($input['password'] !== $input['confirm_password'])
+        {
+            $hasErrors = true;
+            echo 'Пароль и подтверждение пароля не совпадают';
+        }
+
+        if ($hasErrors) return $response;
+
+        $name = htmlspecialchars($input['name']);
+        $email = htmlspecialchars($input['email']);
+        $password = sha1($input['password']);
+
+        if (User::where('email', $email)->exists())
+        {
+            echo 'Пользователь с почтой '. $email .' уже существует';
+            return $response;
+        }
+        else
+        {
+            $user = User::create([
+                'name' => $name,
+                'email' => $email,
+                'password' => $password,
+            ]);
+            $user->save();
+            return $response->withHeader('Location', '/')->withStatus(302);
+        }
     }
 }
