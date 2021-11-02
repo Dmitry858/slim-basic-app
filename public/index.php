@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * Start session.
+ */
+session_start();
+
+/**
  * Autoload global dependencies and allow for autoloading local dependencies via use.
  */
 require __DIR__ . '/../vendor/autoload.php';

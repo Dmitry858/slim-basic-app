@@ -3,12 +3,14 @@
 namespace App\Controllers;
 
 use App\Models\Page;
+use App\Support\Auth;
 
 class MainController
 {
     public function index($response)
     {
-        return view($response, 'home');
+        $user = Auth::user();
+        return view($response, 'home', compact('user'));
     }
 
     public function page($response, $slug)

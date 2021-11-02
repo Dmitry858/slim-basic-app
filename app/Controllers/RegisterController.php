@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\User;
+use App\Support\Auth;
 
 class RegisterController
 {
@@ -51,6 +52,8 @@ class RegisterController
                 'password' => $password,
             ]);
             $user->save();
+
+            Auth::attempt($email, $password);
             return $response->withHeader('Location', '/')->withStatus(302);
         }
     }
