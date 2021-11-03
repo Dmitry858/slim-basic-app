@@ -3,7 +3,7 @@
 @section('content')
     <div class="content">
         <h1>Регистрация</h1>
-        <form method="POST" action="">
+        <form method="POST" action="/register">
             <input type="text" name="name" placeholder="Имя" required />
             <br><br>
             <input type="email" name="email" placeholder="Email" required />
