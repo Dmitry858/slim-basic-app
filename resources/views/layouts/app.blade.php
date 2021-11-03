@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
+    @include('include.menu')
     @yield('content')
 
     <script src="js/app.js"></script>
