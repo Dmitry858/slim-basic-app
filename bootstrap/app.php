@@ -2,11 +2,12 @@
 use DI\Container;
 use DI\Bridge\Slim\Bridge as SlimAppFactory;
 use Illuminate\Database\Capsule\Manager as Capsule;
+use App\Middleware\Middleware;
 
 $app = SlimAppFactory::create(new Container);
 
-$middleware = require __DIR__ . '/../app/middleware.php';
-$middleware($app);
+$middleware = new Middleware;
+$middleware->init($app);
 
 $routes = require __DIR__ . '/../app/routes.php';
 $routes($app);
