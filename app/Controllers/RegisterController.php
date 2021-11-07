@@ -5,11 +5,16 @@ namespace App\Controllers;
 use App\Models\User;
 use App\Support\Auth;
 
-class RegisterController
+class RegisterController extends Controller
 {
-    public function show($response)
+    public function show($request, $response)
     {
-        return view($response, 'auth.register');
+        $csrf = [
+            $this->csrfNameKey => $request->getAttribute($this->csrfNameKey),
+            $this->csrfValueKey => $request->getAttribute($this->csrfValueKey),
+        ];
+
+        return view($response, 'auth.register', compact('csrf'));
     }
 
     public function store($request, $response)

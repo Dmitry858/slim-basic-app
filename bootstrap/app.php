@@ -3,8 +3,15 @@ use DI\Container;
 use DI\Bridge\Slim\Bridge as SlimAppFactory;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use App\Middleware\Middleware;
+use Slim\Csrf\Guard;
 
-$app = SlimAppFactory::create(new Container);
+$container = new Container;
+$app = SlimAppFactory::create($container);
+
+$responseFactory = $app->getResponseFactory();
+$container->set('csrf', function () use ($responseFactory) {
+    return new Guard($responseFactory);
+});
 
 $middleware = new Middleware;
 $middleware->init($app);

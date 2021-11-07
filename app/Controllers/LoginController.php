@@ -4,11 +4,16 @@ namespace App\Controllers;
 
 use App\Support\Auth;
 
-class LoginController
+class LoginController extends Controller
 {
-    public function show($response)
+    public function show($request, $response)
     {
-        return view($response, 'auth.login');
+        $csrf = [
+            $this->csrfNameKey => $request->getAttribute($this->csrfNameKey),
+            $this->csrfValueKey => $request->getAttribute($this->csrfValueKey),
+        ];
+
+        return view($response, 'auth.login', compact('csrf'));
     }
 
     public function store($request, $response)

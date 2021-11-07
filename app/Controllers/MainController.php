@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\Page;
 use App\Support\Auth;
 
-class MainController
+class MainController extends Controller
 {
     public function index($response)
     {

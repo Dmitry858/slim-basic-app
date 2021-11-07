@@ -4,6 +4,7 @@
     <div class="content">
         <h1>Регистрация</h1>
         <form method="POST" action="/register">
+            {{ csrf_html($csrf) }}
             <input type="text" name="name" placeholder="Имя" required />
             <br><br>
             <input type="email" name="email" placeholder="Email" required />

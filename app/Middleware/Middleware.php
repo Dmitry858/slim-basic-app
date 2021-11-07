@@ -13,5 +13,10 @@ class Middleware
             config('middleware.error.logErrors'),
             config('middleware.error.logErrorDetails')
         );
+
+        /**
+         * CSRF protection.
+         */
+        $app->add($app->getContainer()->get('csrf'));
     }
 }

@@ -189,3 +189,15 @@ if (!function_exists('view'))
         return $response;
     };
 }
+
+if (!function_exists('csrf_html'))
+{
+    function csrf_html($csrf) {
+        $html = '';
+        foreach($csrf as $key => $value)
+        {
+            $html .= '<input type="hidden" name="' . $key . '" value="' . $value . '">';
+        }
+        echo $html;
+    };
+}
