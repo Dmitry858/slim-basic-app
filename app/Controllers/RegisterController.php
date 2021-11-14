@@ -14,11 +14,14 @@ class RegisterController extends Controller
             $this->csrfValueKey => $request->getAttribute($this->csrfValueKey),
         ];
 
-        return view($response, 'auth.register', compact('csrf'));
+        $errors = $this->session->getFlashBag()->get('errors');
+
+        return view($response, 'auth.register', compact('csrf', 'errors'));
     }
 
     public function store($request, $response)
     {
+        $url = $request->getUri()->getPath();
         $input = $request->getParsedBody();
         $hasErrors = false;
         foreach ($input as $value)
@@ -26,8 +29,7 @@ class RegisterController extends Controller
             if (trim($value) === '')
             {
                 $hasErrors = true;
-                echo 'Все поля обязательные для заполнения';
-                echo '<br>';
+                $this->session->getFlashBag()->add('errors', 'Все поля обязательные для заполнения');
                 break;
             }
         }
@@ -35,10 +37,13 @@ class RegisterController extends Controller
         if ($input['password'] !== $input['confirm_password'])
         {
             $hasErrors = true;
-            echo 'Пароль и подтверждение пароля не совпадают';
+            $this->session->getFlashBag()->add('errors', 'Пароль и подтверждение пароля не совпадают');
         }
 
-        if ($hasErrors) return $response;
+        if ($hasErrors)
+        {
+            return $response->withHeader('Location', $url);
+        }
 
         $name = htmlspecialchars($input['name']);
         $email = htmlspecialchars($input['email']);
@@ -46,8 +51,8 @@ class RegisterController extends Controller
 
         if (User::where('email', $email)->exists())
         {
-            echo 'Пользователь с почтой '. $email .' уже существует';
-            return $response;
+            $this->session->getFlashBag()->add('errors', 'Пользователь с почтой '. $email .' уже существует');
+            return $response->withHeader('Location', $url);
         }
         else
         {

@@ -8,7 +8,8 @@
         "illuminate/support": "^8.64",
         "illuminate/database": "^8.64",
         "robmorgan/phinx": "^0.12.9",
-        "slim/csrf": "^1.2"
+        "slim/csrf": "^1.2",
+        "symfony/http-foundation": "^5.3"
     },
     "autoload": {
         "files": [

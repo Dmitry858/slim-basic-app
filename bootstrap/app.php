@@ -4,6 +4,13 @@ use DI\Bridge\Slim\Bridge as SlimAppFactory;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use App\Middleware\Middleware;
 use Slim\Csrf\Guard;
+use Symfony\Component\HttpFoundation\Session\Session;
+
+/**
+ * Start session.
+ */
+$session = new Session();
+$session->start();
 
 $container = new Container;
 $app = SlimAppFactory::create($container);

@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="content">
+        @if(count($errors) > 0)
+            @foreach($errors as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        @endif
         <h1>Регистрация</h1>
         <form method="POST" action="/register">
             {{ csrf_html($csrf) }}

@@ -13,7 +13,9 @@ class LoginController extends Controller
             $this->csrfValueKey => $request->getAttribute($this->csrfValueKey),
         ];
 
-        return view($response, 'auth.login', compact('csrf'));
+        $errors = $this->session->getFlashBag()->get('errors');
+
+        return view($response, 'auth.login', compact('csrf', 'errors'));
     }
 
     public function store($request, $response)
@@ -26,8 +28,11 @@ class LoginController extends Controller
 
         if (!$successful)
         {
-            echo 'Логин или пароль неверный';
-            return $response;
+            $url = $request->getUri()->getPath();
+
+            $this->session->getFlashBag()->add('errors', 'Логин или пароль неверный');
+
+            return $response->withHeader('Location', $url);
         }
 
         return $response->withHeader('Location', '/')->withStatus(302);

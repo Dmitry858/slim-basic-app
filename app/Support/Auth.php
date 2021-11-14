@@ -3,6 +3,7 @@
 namespace App\Support;
 
 use App\Models\User;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class Auth
 {
@@ -22,29 +23,32 @@ class Auth
             return false;
         }
 
-        $_SESSION['user'] = [
+        $session = new Session();
+        $session->set('user', [
             'id' => $user->id,
             'email' => $user->email,
             'password' => $user->password
-        ];
+        ]);
 
         return true;
     }
 
     public static function logout()
     {
-        $_SESSION['user'] = [
+        $session = new Session();
+        $session->set('user', [
             'id' => null,
             'email' => null,
             'password' => null
-        ];
+        ]);
 
         return self::guest();
     }
 
     public static function user()
     {
-        $user = User::where($_SESSION['user']);
+        $session = new Session();
+        $user = User::where($session->get('user'));
 
         return $user->exists() ? $user->first() : false;
     }
