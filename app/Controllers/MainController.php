@@ -9,8 +9,11 @@ class MainController extends Controller
 {
     public function index($response)
     {
-        $user = Auth::user();
-        return view($response, 'home', compact('user'));
+        $userData = Auth::user();
+        $user = $userData->name;
+        $success = $this->session->getFlashBag()->get('success');
+
+        return view($response, 'home', compact('user', 'success'));
     }
 
     public function page($response, $slug)

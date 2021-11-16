@@ -63,6 +63,8 @@ class RegisterController extends Controller
             ]);
             $user->save();
 
+            $this->session->getFlashBag()->add('success', 'Регистрация прошла успешно!');
+
             Auth::attempt($email, $password);
             return $response->withHeader('Location', '/')->withStatus(302);
         }
