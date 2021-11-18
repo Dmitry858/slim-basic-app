@@ -6,7 +6,7 @@ This is a skeleton for creating applications with Slim 4.
 - PHP 7.2 or newer
 
 ### Installation
-1. Copy this repository to root directory of project.
+1. Copy this repository to the root directory of the project.
 2. Use the following commands:
 ```
 composer install
@@ -15,23 +15,23 @@ composer install
 ```
 npm install
 ```
-3. If you use Nginx instead Apache web server read [this guide](https://www.slimframework.com/docs/v4/start/web-servers.html#nginx-configuration).
-4. Change default settings of Database connection in files `/config/database.php` and `/config/migrations.php`.
+3. If you use Nginx instead of Apache web server read [this guide](https://www.slimframework.com/docs/v4/start/web-servers.html#nginx-configuration).
+4. Change the default settings of the Database connection in the files `/config/database.php` and `/config/migrations.php`.
 5. Start migrations:
 ```
 ./vendor/bin/phinx migrate -c ./config/migrations.php
 ```
-6. Change the password of test user in file `/database/seeders/UserSeeder.php`.
+6. Change the password of the test user in the file `/database/seeders/UserSeeder.php`.
 7. Start seeders:
 ```
 ./vendor/bin/phinx seed:run -c ./config/migrations.php
 ```
 
 ### Links
-https://www.slimframework.com
-https://book.cakephp.org/phinx/0/en/index.html
-https://symfony.com/doc/current/components/http_foundation/sessions.html
-https://laravel-mix.com/docs/6.0/api
+- https://www.slimframework.com
+- https://book.cakephp.org/phinx/0/en/index.html
+- https://symfony.com/doc/current/components/http_foundation/sessions.html
+- https://laravel-mix.com/docs/6.0/api
 
 ____
 
@@ -65,7 +65,7 @@ npm install
 ```
 
 ### Ссылки
-https://www.slimframework.ru/v4
-https://book.cakephp.org/phinx/0/en/index.html
-https://symfony.ru/doc/current/components/http_foundation/sessions.html
-https://laravel-mix.com/docs/6.0/api
+- https://www.slimframework.ru/v4
+- https://book.cakephp.org/phinx/0/en/index.html
+- https://symfony.ru/doc/current/components/http_foundation/sessions.html
+- https://laravel-mix.com/docs/6.0/api
