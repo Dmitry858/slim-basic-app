@@ -3,6 +3,7 @@
 namespace App\Middleware;
 
 use Slim\App;
+use Tuupola\Middleware\JwtAuthentication;
 
 class Middleware
 {
@@ -17,6 +18,16 @@ class Middleware
         /**
          * CSRF protection.
          */
-        $app->add($app->getContainer()->get('csrf'));
+        // $app->add($app->getContainer()->get('csrf')); // register middleware to be executed on all routes
+
+        /**
+         * JWT Authentication Middleware.
+         */
+        $app->add(new JwtAuthentication([
+            'path' => config('api.token.path'),
+            'ignore' => config('api.token.ignore'),
+            'secret' => config('api.token.secret_key'),
+            'secure' => config('api.token.secure'),
+        ]));
     }
 }
