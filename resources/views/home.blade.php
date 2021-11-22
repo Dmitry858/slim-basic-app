@@ -4,10 +4,12 @@
     <div class="content">
         @if(count($success) > 0)
             @foreach($success as $value)
-                <p>{{ $value }}</p>
+                <div class="alert alert-success" role="alert">
+                    {{ $value }}
+                </div>
             @endforeach
         @endif
-        <h1>Главная страница</h1>
+        <h1 class="text-center">Главная страница</h1>
         @if($user)
             <h2>Привет, {{ $user }}!</h2>
         @endif

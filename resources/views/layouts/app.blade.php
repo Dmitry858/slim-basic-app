@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html class="h-100" lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,10 +9,12 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/app.css">
 </head>
-<body>
-    @include('include.menu')
-    @yield('content')
-
+<body class="d-flex flex-column h-100">
+    @include('include.header')
+    <div class="container">
+        @yield('content')
+    </div>
+    @include('include.footer')
     <script src="js/bootstrap.js"></script>
     <script src="js/app.js"></script>
 </body>
