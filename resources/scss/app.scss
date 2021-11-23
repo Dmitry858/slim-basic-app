@@ -2,34 +2,43 @@ body {
     background-image: linear-gradient(180deg, #eee, #fff 100px, #fff);
 }
 
-header {
-    .nav-wrap {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-        padding-top: 1rem;
-        padding-bottom: 1.1rem;
+.nav-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-top: 0.3rem;
+    padding-bottom: 1rem;
+}
+
+.navbar-expand-lg {
+    .navbar-collapse {
+        justify-content: flex-end;
+    }
+
+    .navbar-nav {
+        .nav-link {
+            color: inherit;
+
+            &:hover {
+                color: #719E40;
+            }
+        }
+
+        .nav-item:last-child {
+            .nav-link {
+                padding-right: 0;
+            }
+        }
     }
 }
 
-.navigation {
-    display: flex;
-    padding: 0;
-    margin-bottom: 0;
-    list-style-type: none;
+.navbar-toggler {
+    border: 2px solid #212529;
 
-    li {
-        margin-right: 15px;
-
-        &:last-child {
-            margin-right: 0;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
+    &:focus {
+        box-shadow: 0 0 0 0.1rem;
     }
 }
 

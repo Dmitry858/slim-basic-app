@@ -1,10 +1,10 @@
-<ul class="navigation">
-    <li><a href="/">Главная</a></li>
-    <li><a href="/about">О компании</a></li>
+<ul class="navbar-nav">
+    <li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
+    <li class="nav-item"><a class="nav-link" href="/about">О компании</a></li>
     @if (\App\Support\Auth::guest())
-        <li><a href="/register">Регистрация</a></li>
-        <li><a href="/login">Вход</a></li>
+        <li class="nav-item"><a class="nav-link" href="/register">Регистрация</a></li>
+        <li class="nav-item"><a class="nav-link" href="/login">Вход</a></li>
     @else
-        <li><a href="/logout">Выход</a></li>
+        <li class="nav-item"><a class="nav-link" href="/logout">Выход</a></li>
     @endif
 </ul>
