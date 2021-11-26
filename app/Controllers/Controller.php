@@ -21,4 +21,13 @@ class Controller
 
         $this->session = new Session();
     }
+
+    protected function getCsrf($request): array
+    {
+        $csrf = [
+            $this->csrfNameKey => $request->getAttribute($this->csrfNameKey),
+            $this->csrfValueKey => $request->getAttribute($this->csrfValueKey),
+        ];
+        return $csrf;
+    }
 }

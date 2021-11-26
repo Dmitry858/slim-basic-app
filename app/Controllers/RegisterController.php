@@ -9,11 +9,7 @@ class RegisterController extends Controller
 {
     public function show($request, $response)
     {
-        $csrf = [
-            $this->csrfNameKey => $request->getAttribute($this->csrfNameKey),
-            $this->csrfValueKey => $request->getAttribute($this->csrfValueKey),
-        ];
-
+        $csrf = $this->getCsrf($request);
         $errors = $this->session->getFlashBag()->get('errors');
 
         return view($response, 'auth.register', compact('csrf', 'errors'));
