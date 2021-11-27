@@ -22,6 +22,9 @@
                     <label for="password">Пароль</label>
                 </div>
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
+                <div class="text-center mt-2">
+                    <a href="/reset-password">Забыли пароль?</a>
+                </div>
             </form>
         </div>
     </div>
