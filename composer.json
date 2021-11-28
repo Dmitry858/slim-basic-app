@@ -10,7 +10,8 @@
         "robmorgan/phinx": "^0.12.9",
         "slim/csrf": "^1.2",
         "symfony/http-foundation": "^5.3",
-        "tuupola/slim-jwt-auth": "^3.5"
+        "tuupola/slim-jwt-auth": "^3.5",
+        "phpmailer/phpmailer": "^6.5"
     },
     "autoload": {
         "files": [
