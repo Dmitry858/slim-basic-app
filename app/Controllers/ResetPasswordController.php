@@ -83,4 +83,50 @@ class ResetPasswordController extends Controller
 
         return view($response, 'auth.reset-password', compact('csrf', 'errors', 'key'));
     }
+
+    public function update($request, $response, $key)
+    {
+        $url = $request->getUri()->getPath();
+        $input = $request->getParsedBody();
+        $password = htmlspecialchars($input['password']);
+        $confirm_password = htmlspecialchars($input['confirm_password']);
+        $hasError = false;
+        $resetPass = ResetPassword::where('key', $key)->first();
+
+        if (!$resetPass)
+        {
+            $this->session->getFlashBag()->add('errors', 'Ссылка недействительная');
+            $hasError = true;
+        }
+
+        if (!$password || !$confirm_password)
+        {
+            $this->session->getFlashBag()->add('errors', 'Все поля обязательные для заполнения');
+            $hasError = true;
+        }
+
+        if ($password !== $confirm_password)
+        {
+            $this->session->getFlashBag()->add('errors', 'Пароль и подтвержение пароля не совпадают');
+            $hasError = true;
+        }
+
+        if ($hasError)
+        {
+            return $response->withHeader('Location', $url);
+        }
+
+        $user = $resetPass->user;
+        $user->password = sha1($password);
+        $result = $user->save();
+
+        if ($result)
+        {
+            $resetPass->delete();
+            return $response->withHeader('Location', '/login');
+        }
+
+        $this->session->getFlashBag()->add('errors', 'Что-то пошло не так, попробуйте ещё раз');
+        return $response->withHeader('Location', $url);
+    }
 }
