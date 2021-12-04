@@ -11,7 +11,7 @@
                     </div>
                 @endforeach
             @endif
-            <form method="POST" action="/reset-password">
+            <form method="POST" action="/reset-password/{{ $key }}">
                 {{ csrf_html($csrf) }}
                 <div class="form-floating">
                     <input class="form-control" id="password" type="password" name="password" placeholder="Новый пароль" required />
