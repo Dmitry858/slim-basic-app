@@ -15,6 +15,8 @@ $session->start();
 $container = new Container;
 $app = SlimAppFactory::create($container);
 
+$container->set('session', $session);
+
 $responseFactory = $app->getResponseFactory();
 $container->set('csrf', function () use ($responseFactory) {
     return new Guard($responseFactory);

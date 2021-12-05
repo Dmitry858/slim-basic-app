@@ -48,7 +48,8 @@ class Auth
     public static function user()
     {
         $session = new Session();
-        $user = User::where($session->get('user'));
+        $sessionUser = $session->get('user');
+        $user = User::where('email', $sessionUser['email'])->where('password', $sessionUser['password']);
 
         return $user->exists() ? $user->first() : false;
     }

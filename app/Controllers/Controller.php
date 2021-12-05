@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use Slim\App;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 class Controller
 {
@@ -18,8 +17,7 @@ class Controller
         $this->app = $app;
         $this->csrfNameKey = $csrf->getTokenNameKey();
         $this->csrfValueKey = $csrf->getTokenValueKey();
-
-        $this->session = new Session();
+        $this->session = $app->getContainer()->get('session');
     }
 
     protected function getCsrf($request): array
