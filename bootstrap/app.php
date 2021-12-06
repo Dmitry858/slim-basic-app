@@ -5,6 +5,9 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 use App\Middleware\Middleware;
 use Slim\Csrf\Guard;
 use Symfony\Component\HttpFoundation\Session\Session;
+use League\Flysystem\Local\LocalFilesystemAdapter;
+use League\Flysystem\Filesystem;
+use MatthiasMullie\Scrapbook\Adapters\Flysystem;
 
 /**
  * Start session.
@@ -27,6 +30,14 @@ $middleware->init($app);
 
 $routes = require __DIR__ . '/../app/routes.php';
 $routes($app);
+
+/**
+ * Initialize Cache.
+ */
+$adapter = new LocalFilesystemAdapter(config('general.cache.path'));
+$filesystem = new Filesystem($adapter);
+$cache = new Flysystem($filesystem);
+$container->set('cache', $cache);
 
 /**
  * Initialize Illuminate Database Connection.

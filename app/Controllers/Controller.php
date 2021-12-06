@@ -10,6 +10,7 @@ class Controller
     protected $csrfNameKey;
     protected $csrfValueKey;
     protected $session;
+    protected $cache;
 
     public function __construct(App $app)
     {
@@ -18,6 +19,7 @@ class Controller
         $this->csrfNameKey = $csrf->getTokenNameKey();
         $this->csrfValueKey = $csrf->getTokenValueKey();
         $this->session = $app->getContainer()->get('session');
+        $this->cache = $app->getContainer()->get('cache');
     }
 
     protected function getCsrf($request): array

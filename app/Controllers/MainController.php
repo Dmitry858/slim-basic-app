@@ -18,7 +18,23 @@ class MainController extends Controller
 
     public function page($response, $slug)
     {
-        $pages = Page::all()->toArray();
+        if (config('general.cache.enable'))
+        {
+            if ($this->cache->get('pages'))
+            {
+                $pages = $this->cache->get('pages');
+            }
+            else
+            {
+                $pages = Page::all()->toArray();
+                $this->cache->set('pages', $pages);
+            }
+        }
+        else
+        {
+            $pages = Page::all()->toArray();
+        }
+
         if (empty($pages)) return $response->withStatus(404);
 
         foreach ($pages as $page)
