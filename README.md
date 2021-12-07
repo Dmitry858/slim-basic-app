@@ -26,12 +26,19 @@ npm install
 ```
 ./vendor/bin/phinx seed:run -c ./config/migrations.php
 ```
+8. If you use this application for building REST API don't forget to change the secret key in the file `/config/api.php`.
 
 ### Links
 - https://www.slimframework.com
 - https://book.cakephp.org/phinx/0/en/index.html
 - https://symfony.com/doc/current/components/http_foundation/sessions.html
+- https://laravel.com/docs/8.x/eloquent
+- https://laravel.com/docs/8.x/blade
 - https://laravel-mix.com/docs/6.0/api
+- https://github.com/tuupola/slim-jwt-auth
+- https://firebaseopensource.com/projects/firebase/php-jwt/
+- https://github.com/PHPMailer/PHPMailer
+- https://www.scrapbook.cash/adapters/flysystem/
 
 ____
 
@@ -63,9 +70,16 @@ npm install
 ```
 ./vendor/bin/phinx seed:run -c ./config/migrations.php
 ```
+8. Если вы используете это приложение для создания REST API, не забудьте поменять секретный ключ в файле `/config/api.php`.
 
 ### Ссылки
 - https://www.slimframework.ru/v4
 - https://book.cakephp.org/phinx/0/en/index.html
 - https://symfony.ru/doc/current/components/http_foundation/sessions.html
+- https://docs.rularavel.com/docs/8.x/eloquent
+- https://docs.rularavel.com/docs/8.x/blade
 - https://laravel-mix.com/docs/6.0/api
+- https://github.com/tuupola/slim-jwt-auth
+- https://firebaseopensource.com/projects/firebase/php-jwt/
+- https://github.com/PHPMailer/PHPMailer
+- https://www.scrapbook.cash/adapters/flysystem/
