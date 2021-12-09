@@ -4,7 +4,6 @@ use App\Controllers\MainController;
 use App\Controllers\RegisterController;
 use App\Controllers\LoginController;
 use App\Controllers\ResetPasswordController;
-use App\Controllers\Api\ApiController;
 use App\Controllers\Api\ApiUserController;
 use App\Middleware\RedirectIfAuthMiddleware;
 use App\Middleware\RedirectIfGuestMiddleware;
@@ -15,9 +14,12 @@ return function(App $app)
     $csrf = $app->getContainer()->get('csrf');
 
     $app->group('/api', function (RouteCollectorProxy $group) {
+        $group->post('/login', [ApiUserController::class, 'login']);
         $group->get('/users', [ApiUserController::class, 'getAll']);
         $group->get('/users/{id:[0-9]+}', [ApiUserController::class, 'get']);
-        $group->post('/login', [ApiController::class, 'login']);
+        $group->post('/users/create', [ApiUserController::class, 'create']);
+        $group->post('/users/{id:[0-9]+}', [ApiUserController::class, 'update']);
+        $group->delete('/users/{id:[0-9]+}', [ApiUserController::class, 'delete']);
     });
 
     $app->group('/', function (RouteCollectorProxy $group) {
