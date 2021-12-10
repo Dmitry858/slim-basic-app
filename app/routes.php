@@ -7,6 +7,7 @@ use App\Controllers\ResetPasswordController;
 use App\Controllers\Api\ApiUserController;
 use App\Middleware\RedirectIfAuthMiddleware;
 use App\Middleware\RedirectIfGuestMiddleware;
+use App\Middleware\JsonBodyParserMiddleware;
 use Slim\Routing\RouteCollectorProxy;
 
 return function(App $app)
@@ -20,7 +21,7 @@ return function(App $app)
         $group->post('/users/create', [ApiUserController::class, 'create']);
         $group->post('/users/{id:[0-9]+}', [ApiUserController::class, 'update']);
         $group->delete('/users/{id:[0-9]+}', [ApiUserController::class, 'delete']);
-    });
+    })->add(new JsonBodyParserMiddleware());
 
     $app->group('/', function (RouteCollectorProxy $group) {
         $group->get('register', [RegisterController::class, 'show']);
