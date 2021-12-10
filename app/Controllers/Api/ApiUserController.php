@@ -9,9 +9,9 @@ class ApiUserController extends ApiController
 {
     public function login($request, $response)
     {
-        $input = $request->getParsedBody();
-        $email = htmlspecialchars($input['email']);
-        $password = sha1($input['password']);
+        $data = $request->getParsedBody();
+        $email = htmlspecialchars($data['email']);
+        $password = sha1($data['password']);
 
         $user = User::where('email', $email);
 
@@ -59,7 +59,23 @@ class ApiUserController extends ApiController
 
     public function getAll($response)
     {
-        $users = User::all()->toArray();
+        if (config('general.cache.enable'))
+        {
+            if ($this->cache->get('users'))
+            {
+                $users = $this->cache->get('users');
+            }
+            else
+            {
+                $users = User::all()->toArray();
+                $this->cache->add('users', $users);
+            }
+        }
+        else
+        {
+            $users = User::all()->toArray();
+        }
+
         $result = [
             'status' => 'success',
             'data' => $users
@@ -94,6 +110,55 @@ class ApiUserController extends ApiController
                 $result = [
                     'status' => 'error',
                     'message' => 'User not found'
+                ];
+            }
+        }
+
+        $response->getBody()->write(json_encode($result));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function create($request, $response)
+    {
+        $data = $request->getParsedBody();
+        $name = htmlspecialchars($data['name']);
+        $email = htmlspecialchars($data['email']);
+        $password = sha1($data['password']);
+
+        if (!$data['$name'] || $data['email'] || !$data['password'])
+        {
+            $result = [
+                'status' => 'error',
+                'message' => 'Empty field'
+            ];
+        }
+        else
+        {
+            if (User::where('email', $email)->exists())
+            {
+                $result = [
+                    'status' => 'error',
+                    'message' => 'User with email ' . $email . ' exists'
+                ];
+            }
+            else
+            {
+                $user = User::create([
+                    'name' => $name,
+                    'email' => $email,
+                    'password' => $password,
+                ]);
+                $user->save();
+
+                if (config('general.cache.enable'))
+                {
+                    $this->cache->delete('users');
+                }
+
+                $result = [
+                    'status' => 'success',
+                    'message' => 'User created',
+                    'id' => $user->id
                 ];
             }
         }
