@@ -125,7 +125,7 @@ class ApiUserController extends ApiController
         $email = htmlspecialchars($data['email']);
         $password = sha1($data['password']);
 
-        if (!$data['$name'] || $data['email'] || !$data['password'])
+        if (!$data['name'] || !$data['email'] || !$data['password'])
         {
             $result = [
                 'status' => 'error',
@@ -159,6 +159,107 @@ class ApiUserController extends ApiController
                     'status' => 'success',
                     'message' => 'User created',
                     'id' => $user->id
+                ];
+            }
+        }
+
+        $response->getBody()->write(json_encode($result));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function update($request, $response, $id)
+    {
+        $data = $request->getParsedBody();
+
+        $needUpdate = false;
+        if ($data['$name'] || $data['email'] || $data['password'])
+        {
+            $needUpdate = true;
+        }
+
+        $userId = intval($id);
+        if ($userId === 0 || !$needUpdate)
+        {
+            $result = [];
+        }
+        else
+        {
+            $user = User::find($userId);
+            if ($user)
+            {
+                $name = htmlspecialchars($data['name']);
+                $email = htmlspecialchars($data['email']);
+                $password = sha1($data['password']);
+
+                if ($name) $user->name = $name;
+                if ($email) $user->email = $email;
+                if ($data['password']) $user->password = $password;
+                $user->save();
+
+                if (config('general.cache.enable'))
+                {
+                    $this->cache->delete('users');
+                }
+
+                $result = [
+                    'status' => 'success',
+                    'message' => 'User updated'
+                ];
+            }
+            else
+            {
+                $result = [
+                    'status' => 'error',
+                    'message' => 'User not found'
+                ];
+            }
+        }
+
+        $response->getBody()->write(json_encode($result));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function delete($response, $id)
+    {
+        $userId = intval($id);
+        if ($userId === 0)
+        {
+            $result = [
+                'status' => 'error',
+                'message' => 'User not found'
+            ];
+        }
+        else
+        {
+            $user = User::find($userId);
+            if ($user)
+            {
+                $res = $user->delete();
+                if (!$res)
+                {
+                    $result = [
+                        'status' => 'error',
+                        'message' => 'Unknown reason'
+                    ];
+                }
+                else
+                {
+                    if (config('general.cache.enable'))
+                    {
+                        $this->cache->delete('users');
+                    }
+                    $result = [
+                        'status' => 'success',
+                        'message' => 'User deleted',
+                        'id' => $userId
+                    ];
+                }
+            }
+            else
+            {
+                $result = [
+                    'status' => 'error',
+                    'message' => 'User not found'
                 ];
             }
         }
