@@ -28,6 +28,13 @@ class Middleware
             'ignore' => config('api.token.ignore'),
             'secret' => config('api.token.secret_key'),
             'secure' => config('api.token.secure'),
+            'error' => function ($response, $arguments) {
+                $data['status'] = 'error';
+                $data['message'] = $arguments['message'];
+                return $response
+                    ->withHeader('Content-Type', 'application/json')
+                    ->getBody()->write(json_encode($data));
+            }
         ]));
     }
 }
