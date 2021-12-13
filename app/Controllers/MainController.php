@@ -9,11 +9,30 @@ class MainController extends Controller
 {
     public function index($response)
     {
+        if (config('general.cache.enable'))
+        {
+            if ($this->cache->get('home'))
+            {
+                $home = $this->cache->get('home');
+            }
+            else
+            {
+                $home = Page::where('slug', 'home')->first();
+                if ($home) $this->cache->set('home', $home);
+            }
+        }
+        else
+        {
+            $home = Page::where('slug', 'home')->first();
+        }
+
+        $title = $home->title;
+        $content = $home->content;
         $userData = Auth::user();
         $user = $userData->name;
         $success = $this->session->getFlashBag()->get('success');
 
-        return view($response, 'home', compact('user', 'success'));
+        return view($response, 'home', compact('title', 'content', 'user', 'success'));
     }
 
     public function page($response, $slug)
