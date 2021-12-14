@@ -23,6 +23,7 @@ final class CreateUsersTableMigration extends AbstractMigration
         $table->addColumn('name', 'string', ['limit' => 128])
               ->addColumn('email', 'string', ['limit' => 128])
               ->addColumn('password', 'string', ['limit' => 128])
+              ->addColumn('remember_me_token', 'string', ['limit' => 128, 'null' => true])
               ->addTimestamps()
               ->create();
     }
