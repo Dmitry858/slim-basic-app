@@ -21,6 +21,12 @@
                     <input class="form-control" id="password" type="password" name="password" placeholder="Пароль" required />
                     <label for="password">Пароль</label>
                 </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="remember_me" value="1" id="remember_me">
+                    <label class="form-check-label" for="remember_me">
+                        Запомнить меня
+                    </label>
+                </div>
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
                 <div class="text-center mt-2">
                     <a href="/reset-password">Забыли пароль?</a>

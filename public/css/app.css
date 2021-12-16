@@ -49,6 +49,10 @@ body {
   margin-bottom: 1rem;
 }
 
+.form-check {
+  margin-bottom: 1rem;
+}
+
 .btn-primary, .btn-primary:hover {
   color: #fff;
 }
