@@ -4,16 +4,22 @@ namespace App\Middleware;
 
 use Slim\App;
 use Tuupola\Middleware\JwtAuthentication;
+use App\Support\CustomErrorRenderer;
 
 class Middleware
 {
     public function init(App $app)
     {
-        $app->addErrorMiddleware(
+        /**
+         * Error Middleware.
+         */
+        $errorMiddleware = $app->addErrorMiddleware(
             config('middleware.error.displayErrorDetails'),
             config('middleware.error.logErrors'),
             config('middleware.error.logErrorDetails')
         );
+        $errorHandler = $errorMiddleware->getDefaultErrorHandler();
+        $errorHandler->registerErrorRenderer('text/html', CustomErrorRenderer::class);
 
         /**
          * CSRF protection.

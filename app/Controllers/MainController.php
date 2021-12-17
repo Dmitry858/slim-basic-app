@@ -54,14 +54,22 @@ class MainController extends Controller
             $pages = Page::all()->toArray();
         }
 
-        if (empty($pages)) return $response->withStatus(404);
+        if (empty($pages))
+        {
+            $code = 404;
+            return view($response->withStatus(404), 'error', compact('code'));
+        }
 
         foreach ($pages as $page)
         {
             if ($page['slug'] === $slug) $currentPage = $page;
         }
 
-        if (!isset($currentPage)) return $response->withStatus(404);
+        if (!isset($currentPage))
+        {
+            $code = 404;
+            return view($response->withStatus(404), 'error', compact('code'));
+        }
 
         $title = $currentPage['title'];
         $content = $currentPage['content'];
