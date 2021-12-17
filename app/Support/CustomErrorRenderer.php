@@ -32,7 +32,7 @@ class CustomErrorRenderer extends AbstractErrorRenderer
         $blade = new BladeOne(
             config('blade.views'),
             config('blade.cache'),
-            BladeOne::MODE_DEBUG
+            config('blade.mode')
         );
 
         return $blade->run('error', compact('code', 'htmlException'));

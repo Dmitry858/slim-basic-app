@@ -180,9 +180,11 @@ if (!function_exists('data_set')) {
 if (!function_exists('view'))
 {
     function view(Response $response, $template, $with = []) {
-        $views = config('blade.views');
-        $cache = config('blade.cache');
-        $blade = new BladeOne($views, $cache,BladeOne::MODE_DEBUG);
+        $blade = new BladeOne(
+            config('blade.views'),
+            config('blade.cache'),
+            config('blade.mode')
+        );
         $response->getBody()->write(
             $blade->run($template, $with)
         );
