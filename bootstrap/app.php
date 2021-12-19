@@ -3,6 +3,7 @@ use DI\Container;
 use DI\Bridge\Slim\Bridge as SlimAppFactory;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use App\Middleware\Middleware;
+use App\Support\Routes;
 use Slim\Csrf\Guard;
 use Symfony\Component\HttpFoundation\Session\Session;
 use League\Flysystem\Local\LocalFilesystemAdapter;
@@ -28,8 +29,11 @@ $container->set('csrf', function () use ($responseFactory) {
 $middleware = new Middleware;
 $middleware->init($app);
 
-$routes = require __DIR__ . '/../app/routes.php';
-$routes($app);
+/**
+ * Defining routes.
+ */
+$routes = new Routes;
+$routes->init($app);
 
 /**
  * Initialize Cache.
