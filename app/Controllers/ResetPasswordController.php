@@ -4,8 +4,7 @@ namespace App\Controllers;
 
 use App\Models\User;
 use App\Models\ResetPassword;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+use App\Support\Mail;
 
 class ResetPasswordController extends Controller
 {
@@ -46,21 +45,20 @@ class ResetPasswordController extends Controller
 
         if ($result)
         {
-            $mail = new PHPMailer();
-            $link = $request->getUri() . '/' . $key;
-            try
+            $link = $request->getUri()->getScheme() . '://' . $request->getUri()->getHost() . $request->getUri()->getPath() . '/' . $key;
+            $message = 'Для восстановления пароля перейдите по ссылке <a href="'.$link.'">'.$link.'</a>';
+            $subject = 'Ссылка на восстановление пароля';
+
+            $mail = new Mail;
+            $sent = $mail->send($message, $subject, $user->email);
+
+            if ($sent['status'] === 'success')
             {
-                $mail->setFrom(config('mail.from.address'), config('mail.from.name'));
-                $mail->addAddress($user->email);
-                $mail->isHTML(true);
-                $mail->Subject = 'Ссылка на восстановление пароля';
-                $mail->Body = 'Для восстановления пароля перейдите по ссылке <a href="'.$link.'">'.$link.'</a>';
-                $mail->send();
                 return $response->withHeader('Location', $url.'/confirm');
             }
-            catch (Exception $e)
+            else
             {
-                $this->session->getFlashBag()->add('errors', $mail->ErrorInfo);
+                $this->session->getFlashBag()->add('errors', $sent['message']);
                 return $response->withHeader('Location', $url);
             }
         }
