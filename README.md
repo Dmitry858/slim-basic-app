@@ -3,9 +3,9 @@ This is a skeleton for creating applications with Slim 4.
 
 ### System Requirements
 - Web server with URL rewriting
-- PHP 7.2 or newer
+- PHP 7.4 or newer
 
-### Installation
+### Installation and setup
 1. Copy this repository to the root directory of the project.
 2. Use the following commands:
 ```
@@ -28,6 +28,9 @@ npm install
 ```
 8. If you use this application for building REST API don't forget to change the secret key in the file `/config/api.php`.
 
+### Version with admin panel
+The branch "[admin-panel](https://github.com/dmitry858/slim-basic-app/tree/admin-panel)" has the version of application with admin panel.
+
 ### Links
 - https://www.slimframework.com
 - https://book.cakephp.org/phinx/0/en/index.html
@@ -47,9 +50,9 @@ ____
 
 ### Системные требования
 - Веб-сервер с модулем перезаписи URL
-- PHP 7.2 и выше
+- PHP 7.4 и выше
 
-### Установка
+### Установка и настройка
 1. Скопируйте содержимое репозитория в корень проекта.
 2. Выполните следующие команды:
 ```
@@ -71,6 +74,9 @@ npm install
 ./vendor/bin/phinx seed:run -c ./config/migrations.php
 ```
 8. Если вы используете это приложение для создания REST API, не забудьте поменять секретный ключ в файле `/config/api.php`.
+
+### Версия с административной панелью
+Ветка "[admin-panel](https://github.com/dmitry858/slim-basic-app/tree/admin-panel)" содержит версию приложения с административной панелью.
 
 ### Ссылки
 - https://www.slimframework.ru/v4
