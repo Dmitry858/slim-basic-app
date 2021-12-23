@@ -86,4 +86,15 @@ class Auth
     {
         return !self::check();
     }
+
+    public static function admin()
+    {
+        $is_admin = false;
+        $user = self::user();
+        if ($user && $user->is_admin === 1)
+        {
+            $is_admin = true;
+        }
+        return $is_admin;
+    }
 }
