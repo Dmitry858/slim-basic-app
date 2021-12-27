@@ -32,8 +32,8 @@ $middleware->init($app);
 /**
  * Defining routes.
  */
-$routes = new Routes;
-$routes->init($app);
+$routes = new Routes($app);
+$routes->init();
 
 /**
  * Initialize Cache.

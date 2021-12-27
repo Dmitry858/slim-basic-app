@@ -7,8 +7,14 @@ use Slim\App;
 class Routes
 {
     private string $routes_path = __DIR__ . '/../../routes/';
+    private App $app;
 
-    public function init(App $app)
+    public function __construct(App $app)
+    {
+        $this->app = $app;
+    }
+
+    public function init()
     {
         $files = scandir($this->routes_path);
 
@@ -20,8 +26,14 @@ class Routes
             {
                 $name = $fileInfo->getFilename();
                 $routes = require $this->routes_path . $name;
-                $routes($app);
+                $routes($this->app);
             }
         }
+    }
+
+    public function generateUrl(string $routeName, array $data = [], array $queryParams = []): string
+    {
+        $routeParser = $this->app->getRouteCollector()->getRouteParser();
+        return $routeParser->urlFor($routeName, $data, $queryParams);
     }
 }
