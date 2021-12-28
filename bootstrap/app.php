@@ -38,7 +38,7 @@ $routes->init();
 /**
  * Initialize Cache.
  */
-$adapter = new LocalFilesystemAdapter(config('general.cache.path'));
+$adapter = new LocalFilesystemAdapter(config('app.cache.path'));
 $filesystem = new Filesystem($adapter);
 $cache = new Flysystem($filesystem);
 $container->set('cache', $cache);

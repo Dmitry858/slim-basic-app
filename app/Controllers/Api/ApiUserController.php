@@ -59,7 +59,7 @@ class ApiUserController extends ApiController
 
     public function getAll($response)
     {
-        if (config('general.cache.enable'))
+        if (config('app.cache.enable'))
         {
             if ($this->cache->get('users'))
             {
@@ -150,7 +150,7 @@ class ApiUserController extends ApiController
                 ]);
                 $user->save();
 
-                if (config('general.cache.enable'))
+                if (config('app.cache.enable'))
                 {
                     $this->cache->delete('users');
                 }
@@ -196,7 +196,7 @@ class ApiUserController extends ApiController
                 if ($data['password']) $user->password = $password;
                 $user->save();
 
-                if (config('general.cache.enable'))
+                if (config('app.cache.enable'))
                 {
                     $this->cache->delete('users');
                 }
@@ -244,7 +244,7 @@ class ApiUserController extends ApiController
                 }
                 else
                 {
-                    if (config('general.cache.enable'))
+                    if (config('app.cache.enable'))
                     {
                         $this->cache->delete('users');
                     }

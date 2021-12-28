@@ -9,7 +9,7 @@ class MainController extends Controller
 {
     public function index($response)
     {
-        if (config('general.cache.enable'))
+        if (config('app.cache.enable'))
         {
             if ($this->cache->get('home'))
             {
@@ -37,7 +37,7 @@ class MainController extends Controller
 
     public function page($response, $slug)
     {
-        if (config('general.cache.enable'))
+        if (config('app.cache.enable'))
         {
             if ($this->cache->get('pages'))
             {
