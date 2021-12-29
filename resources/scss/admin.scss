@@ -67,6 +67,18 @@
     border-radius: 0;
 }
 
+td {
+    .edit-icon, .delete-icon {
+        padding: 0;
+        line-height: 1;
+        margin: -7px 5px 0;
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+}
+
 @media (max-width: 767px) {
     .logout-wrap {
         margin-right: 85px;
