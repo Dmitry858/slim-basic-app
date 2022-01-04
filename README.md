@@ -21,12 +21,11 @@ npm install
 ```
 ./vendor/bin/phinx migrate -c ./config/migrations.php
 ```
-6. Change the password of the test user in the file `/database/seeders/UserSeeder.php`.
-7. Start seeders:
+6. Start seeders:
 ```
 ./vendor/bin/phinx seed:run -c ./config/migrations.php
 ```
-8. If you use this application for building REST API don't forget to change the secret key in the file `/config/api.php`.
+7. If you use this application for building REST API don't forget to change the secret key in the file `/config/api.php`.
 
 ### Version with admin panel
 The branch "[admin-panel](https://github.com/dmitry858/slim-basic-app/tree/admin-panel)" has the version of application with admin panel.
@@ -68,12 +67,11 @@ npm install
 ```
 ./vendor/bin/phinx migrate -c ./config/migrations.php
 ```
-6. Поменяйте пароль тестового пользователя в файле `/database/seeders/UserSeeder.php`.
-7. Запустите сидеры:
+6. Запустите сидеры:
 ```
 ./vendor/bin/phinx seed:run -c ./config/migrations.php
 ```
-8. Если вы используете это приложение для создания REST API, не забудьте поменять секретный ключ в файле `/config/api.php`.
+7. Если вы используете это приложение для создания REST API, не забудьте поменять секретный ключ в файле `/config/api.php`.
 
 ### Версия с административной панелью
 Ветка "[admin-panel](https://github.com/dmitry858/slim-basic-app/tree/admin-panel)" содержит версию приложения с административной панелью.
