@@ -34,12 +34,86 @@ class UserController extends Controller
 
     public function show($response, $id)
     {
-        return $response;
+        $user = User::find($id)->toArray();
+        $errors = $this->session->getFlashBag()->get('errors');
+
+        return view($response, 'admin.edit-user', compact('user', 'errors'));
     }
 
     public function update($request, $response, $id)
     {
-        return $response;
+        $url = $request->getUri()->getPath();
+        $input = $request->getParsedBody();
+        $name = htmlspecialchars(trim($input['name']));
+        $email = htmlspecialchars(trim($input['email']));
+        $newPassword = htmlspecialchars(trim($input['new_password']));
+        $isAdmin = intval($input['is_admin']);
+        $hasErrors = false;
+        $needUpdate = false;
+        $userId = intval($id);
+
+        if ($userId === 0)
+        {
+            return $response;
+        }
+
+        if (!$name || !$email)
+        {
+            $hasErrors = true;
+            $this->session->getFlashBag()->add('errors', 'Поля "Имя" и "Email" обязательные для заполнения');
+        }
+
+        if ($input['new_password'] !== $input['confirm_new_password'])
+        {
+            $hasErrors = true;
+            $this->session->getFlashBag()->add('errors', 'Новый пароль и подтверждение нового пароля не совпадают');
+        }
+
+        if ($hasErrors)
+        {
+            return $response->withHeader('Location', $url);
+        }
+
+        $user = User::find($userId);
+        if (!$user)
+        {
+            return $response;
+        }
+
+        if ($user->name !== $name)
+        {
+            $user->name = $name;
+            $needUpdate = true;
+        }
+        if ($user->email !== $email)
+        {
+            $user->email = $email;
+            $needUpdate = true;
+        }
+        if ($user->is_admin !== $isAdmin)
+        {
+            $user->is_admin = $isAdmin;
+            $needUpdate = true;
+        }
+        if ($newPassword)
+        {
+            $user->password = sha1($newPassword);
+            $needUpdate = true;
+        }
+
+        if ($needUpdate)
+        {
+            $user->save();
+
+            if (config('app.cache.enable'))
+            {
+                $this->cache->delete('users');
+            }
+        }
+
+        $this->session->getFlashBag()->add('success', 'Пользователь обновлён');
+
+        return $response->withHeader('Location', config('admin.path').'/users');
     }
 
     public function create($request, $response)
