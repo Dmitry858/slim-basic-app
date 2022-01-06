@@ -125,7 +125,53 @@ class UserController extends Controller
 
     public function store($request, $response)
     {
-        return $response;
+        $url = $request->getUri()->getPath();
+        $input = $request->getParsedBody();
+        $hasErrors = false;
+        foreach ($input as $value)
+        {
+            if (trim($value) === '')
+            {
+                $hasErrors = true;
+                $this->session->getFlashBag()->add('errors', 'Все поля обязательные для заполнения');
+                break;
+            }
+        }
+
+        if ($input['password'] !== $input['confirm_password'])
+        {
+            $hasErrors = true;
+            $this->session->getFlashBag()->add('errors', 'Пароль и подтверждение пароля не совпадают');
+        }
+
+        if ($hasErrors)
+        {
+            return $response->withHeader('Location', $url);
+        }
+
+        $name = htmlspecialchars($input['name']);
+        $email = htmlspecialchars($input['email']);
+        $password = sha1($input['password']);
+        $isAdmin = intval($input['is_admin']);
+
+        if (User::where('email', $email)->exists())
+        {
+            $this->session->getFlashBag()->add('errors', 'Пользователь с почтой '. $email .' уже существует');
+            return $response->withHeader('Location', $url);
+        }
+        else
+        {
+            $user = new User;
+            $user->name = $name;
+            $user->email = $email;
+            $user->password = $password;
+            $user->is_admin = $isAdmin;
+            $user->save();
+
+            $this->session->getFlashBag()->add('success', 'Пользователь успешно создан');
+
+            return $response->withHeader('Location', config('admin.path').'/users');
+        }
     }
 
     public function delete($response, $id)
