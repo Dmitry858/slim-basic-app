@@ -76,6 +76,10 @@ td .edit-icon:focus, td .delete-icon:focus {
   box-shadow: none;
 }
 
+.delete-btn-wrap {
+  display: inline-block;
+}
+
 @media (max-width: 767px) {
   .logout-wrap {
     margin-right: 85px;

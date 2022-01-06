@@ -28,8 +28,9 @@ class UserController extends Controller
 
         $title = 'Список пользователей';
         $success = $this->session->getFlashBag()->get('success');
+        $errors = $this->session->getFlashBag()->get('errors');
 
-        return view($response, 'admin.users', compact('title', 'users', 'success'));
+        return view($response, 'admin.users', compact('title', 'users', 'success', 'errors'));
     }
 
     public function show($response, $id)
@@ -116,9 +117,10 @@ class UserController extends Controller
         return $response->withHeader('Location', config('admin.path').'/users');
     }
 
-    public function create($request, $response)
+    public function create($response)
     {
-        return $response;
+        $errors = $this->session->getFlashBag()->get('errors');
+        return view($response, 'admin.create-user', compact('errors'));
     }
 
     public function store($request, $response)
@@ -128,6 +130,29 @@ class UserController extends Controller
 
     public function delete($response, $id)
     {
-        return $response;
+        $userId = intval($id);
+        $user = User::find($userId);
+        if ($user)
+        {
+            $res = $user->delete();
+            if (!$res)
+            {
+                $this->session->getFlashBag()->add('errors', 'Что-то пошло не так, попробуйте позже');
+            }
+            else
+            {
+                if (config('app.cache.enable'))
+                {
+                    $this->cache->delete('users');
+                }
+                $this->session->getFlashBag()->add('success', 'Пользователь удалён');
+            }
+        }
+        else
+        {
+            $this->session->getFlashBag()->add('errors', 'Пользователь с id '.$userId.' не найден');
+        }
+
+        return $response->withHeader('Location', config('admin.path').'/users');
     }
 }

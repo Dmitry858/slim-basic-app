@@ -15,6 +15,6 @@ return function(App $app)
         $group->post('/users/{id:[0-9]+}', [UserController::class, 'update']);
         $group->get('/users/create', [UserController::class, 'create']);
         $group->post('/users/create', [UserController::class, 'store']);
-        $group->delete('/users/{id:[0-9]+}', [UserController::class, 'delete']);
+        $group->post('/users/delete/{id:[0-9]+}', [UserController::class, 'delete']);
     })->add(new RedirectIfNotAdminMiddleware());
 };

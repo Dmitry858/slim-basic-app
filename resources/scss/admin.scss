@@ -79,6 +79,10 @@ td {
     }
 }
 
+.delete-btn-wrap {
+    display: inline-block;
+}
+
 @media (max-width: 767px) {
     .logout-wrap {
         margin-right: 85px;
