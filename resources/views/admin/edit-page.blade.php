@@ -20,7 +20,7 @@
         </div>
         <div class="mb-3">
             <label for="slug" class="form-label">Слаг</label>
-            <input type="text" name="slug" class="form-control" id="slug" value="{{ $page['slug'] }}" required @if($page['slug'] === 'home') disabled readonly @endif>
+            <input type="text" name="slug" class="form-control" id="slug" value="{{ $page['slug'] }}" required @if($page['slug'] === 'home') readonly @endif>
         </div>
         <div class="mb-3">
             <label for="excerpt" class="form-label">Анонс</label>
