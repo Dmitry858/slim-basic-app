@@ -47,8 +47,6 @@ class PageController extends Controller
         $input = $request->getParsedBody();
         $title = htmlspecialchars(trim($input['title']));
         $slug = htmlspecialchars(trim($input['slug']));
-        $excerpt = htmlspecialchars($input['excerpt']);
-        $content = htmlspecialchars($input['content']);
         $needUpdate = false;
         $pageId = intval($id);
 
@@ -85,14 +83,14 @@ class PageController extends Controller
             $page->slug = $slug;
             $needUpdate = true;
         }
-        if ($page->excerpt !== $excerpt)
+        if ($page->excerpt !== $input['excerpt'])
         {
-            $page->excerpt = $excerpt;
+            $page->excerpt = $input['excerpt'];
             $needUpdate = true;
         }
-        if ($page->content !== $content)
+        if ($page->content !== $input['content'])
         {
-            $page->content = $content;
+            $page->content = $input['content'];
             $needUpdate = true;
         }
 
@@ -123,8 +121,6 @@ class PageController extends Controller
         $input = $request->getParsedBody();
         $title = htmlspecialchars(trim($input['title']));
         $slug = htmlspecialchars(trim($input['slug']));
-        $excerpt = htmlspecialchars($input['excerpt']);
-        $content = htmlspecialchars($input['content']);
 
         if (!$title || !$slug)
         {
@@ -141,8 +137,8 @@ class PageController extends Controller
         $page = Page::create([
             'title' => $title,
             'slug' => $slug,
-            'excerpt' => $excerpt,
-            'content' => $content,
+            'excerpt' => $input['excerpt'],
+            'content' => $input['content'],
         ]);
         $page->save();
 

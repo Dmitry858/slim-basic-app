@@ -32,6 +32,10 @@ window.addEventListener('load', function () {
   }
 
   ;
+  var excerpt = document.getElementById('excerpt'),
+      content = document.getElementById('content');
+  if (excerpt) CKEDITOR.replace('excerpt');
+  if (content) CKEDITOR.replace('content');
 });
 /******/ })()
 ;

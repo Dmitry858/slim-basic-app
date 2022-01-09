@@ -14,12 +14,13 @@
     <div class="container-fluid">
         <div class="row">
             @include('admin.include.sidebar')
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 pb-5">
                 @yield('content')
             </main>
         </div>
     </div>
     <script src="/js/bootstrap.js"></script>
+    <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
     <script src="/js/admin.js"></script>
 </body>
 </html>

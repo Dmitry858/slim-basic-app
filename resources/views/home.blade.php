@@ -13,6 +13,6 @@
         @if($user)
             <h2>Привет, {{ $user }}!</h2>
         @endif
-        <p>{{ $content }}</p>
+        <div>{!! $content !!}</div>
     </div>
 @endsection
