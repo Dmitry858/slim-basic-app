@@ -8,6 +8,6 @@ class AdminController extends Controller
 {
     public function index($response)
     {
-        return view($response, 'admin.dashboard');
+        return $this->view($response, 'admin.dashboard');
     }
 }

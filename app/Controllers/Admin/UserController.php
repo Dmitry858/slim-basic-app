@@ -30,7 +30,7 @@ class UserController extends Controller
         $success = $this->session->getFlashBag()->get('success');
         $errors = $this->session->getFlashBag()->get('errors');
 
-        return view($response, 'admin.users', compact('title', 'users', 'success', 'errors'));
+        return $this->view($response, 'admin.users', compact('title', 'users', 'success', 'errors'));
     }
 
     public function show($response, $id)
@@ -38,7 +38,7 @@ class UserController extends Controller
         $user = User::find($id)->toArray();
         $errors = $this->session->getFlashBag()->get('errors');
 
-        return view($response, 'admin.edit-user', compact('user', 'errors'));
+        return $this->view($response, 'admin.edit-user', compact('user', 'errors'));
     }
 
     public function update($request, $response, $id)
@@ -120,7 +120,7 @@ class UserController extends Controller
     public function create($response)
     {
         $errors = $this->session->getFlashBag()->get('errors');
-        return view($response, 'admin.create-user', compact('errors'));
+        return $this->view($response, 'admin.create-user', compact('errors'));
     }
 
     public function store($request, $response)

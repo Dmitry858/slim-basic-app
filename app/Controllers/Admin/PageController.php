@@ -30,7 +30,7 @@ class PageController extends Controller
         $success = $this->session->getFlashBag()->get('success');
         $errors = $this->session->getFlashBag()->get('errors');
 
-        return view($response, 'admin.pages', compact('title', 'pages', 'success', 'errors'));
+        return $this->view($response, 'admin.pages', compact('title', 'pages', 'success', 'errors'));
     }
 
     public function show($response, $id)
@@ -38,7 +38,7 @@ class PageController extends Controller
         $page = Page::find($id)->toArray();
         $errors = $this->session->getFlashBag()->get('errors');
 
-        return view($response, 'admin.edit-page', compact('page', 'errors'));
+        return $this->view($response, 'admin.edit-page', compact('page', 'errors'));
     }
 
     public function update($request, $response, $id)
@@ -112,7 +112,7 @@ class PageController extends Controller
     public function create($response)
     {
         $errors = $this->session->getFlashBag()->get('errors');
-        return view($response, 'admin.create-page', compact('errors'));
+        return $this->view($response, 'admin.create-page', compact('errors'));
     }
 
     public function store($request, $response)
