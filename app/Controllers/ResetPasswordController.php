@@ -13,7 +13,7 @@ class ResetPasswordController extends Controller
         $csrf = $this->getCsrf($request);
         $errors = $this->session->getFlashBag()->get('errors');
 
-        return view($response, 'auth.send-reset-password-link', compact('csrf', 'errors'));
+        return $this->view($response, 'auth.send-reset-password-link', compact('csrf', 'errors'));
     }
 
     public function store($request, $response)
@@ -71,7 +71,7 @@ class ResetPasswordController extends Controller
 
     public function confirm($response)
     {
-        return view($response, 'auth.send-reset-password-link-success');
+        return $this->view($response, 'auth.send-reset-password-link-success');
     }
 
     public function show($request, $response, $key)
@@ -79,7 +79,7 @@ class ResetPasswordController extends Controller
         $csrf = $this->getCsrf($request);
         $errors = $this->session->getFlashBag()->get('errors');
 
-        return view($response, 'auth.reset-password', compact('csrf', 'errors', 'key'));
+        return $this->view($response, 'auth.reset-password', compact('csrf', 'errors', 'key'));
     }
 
     public function update($request, $response, $key)

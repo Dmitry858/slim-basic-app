@@ -1,7 +1,6 @@
 <?php
+
 /* Global helper functions */
-use eftec\bladeone\BladeOne;
-use Psr\Http\Message\ResponseInterface as Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
@@ -175,21 +174,6 @@ if (!function_exists('data_set')) {
 
         return $target;
     }
-}
-
-if (!function_exists('view'))
-{
-    function view(Response $response, $template, $with = []) {
-        $blade = new BladeOne(
-            config('blade.views'),
-            config('blade.cache'),
-            config('blade.mode')
-        );
-        $response->getBody()->write(
-            $blade->run($template, $with)
-        );
-        return $response;
-    };
 }
 
 if (!function_exists('csrf_html'))
