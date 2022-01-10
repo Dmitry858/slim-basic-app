@@ -32,7 +32,7 @@ class MainController extends Controller
         $user = $userData->name;
         $success = $this->session->getFlashBag()->get('success');
 
-        return view($response, 'home', compact('title', 'content', 'user', 'success'));
+        return $this->view($response, 'home', compact('title', 'content', 'user', 'success'));
     }
 
     public function page($response, $slug)
@@ -57,7 +57,7 @@ class MainController extends Controller
         if (empty($pages))
         {
             $code = 404;
-            return view($response->withStatus(404), 'error', compact('code'));
+            return $this->view($response->withStatus(404), 'error', compact('code'));
         }
 
         foreach ($pages as $page)
@@ -68,11 +68,11 @@ class MainController extends Controller
         if (!isset($currentPage))
         {
             $code = 404;
-            return view($response->withStatus(404), 'error', compact('code'));
+            return $this->view($response->withStatus(404), 'error', compact('code'));
         }
 
         $title = $currentPage['title'];
         $content = $currentPage['content'];
-        return view($response, 'page', compact('title', 'content'));
+        return $this->view($response, 'page', compact('title', 'content'));
     }
 }

@@ -12,7 +12,7 @@ class RegisterController extends Controller
         $csrf = $this->getCsrf($request);
         $errors = $this->session->getFlashBag()->get('errors');
 
-        return view($response, 'auth.register', compact('csrf', 'errors'));
+        return $this->view($response, 'auth.register', compact('csrf', 'errors'));
     }
 
     public function store($request, $response)

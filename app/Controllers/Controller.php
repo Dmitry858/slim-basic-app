@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use Slim\App;
+use Psr\Http\Message\ResponseInterface as Response;
+use App\Support\View;
 
 class Controller
 {
@@ -29,5 +31,11 @@ class Controller
             $this->csrfValueKey => $request->getAttribute($this->csrfValueKey),
         ];
         return $csrf;
+    }
+
+    protected function view(Response $response, $template, $with = []): Response
+    {
+        $view = new View($this->app);
+        return $view->get($response, $template, $with);
     }
 }
