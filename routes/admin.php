@@ -4,6 +4,7 @@ use Slim\App;
 use App\Controllers\Admin\AdminController;
 use App\Controllers\Admin\UserController;
 use App\Controllers\Admin\PageController;
+use App\Controllers\Admin\MenuController;
 use App\Middleware\RedirectIfNotAdminMiddleware;
 use Slim\Routing\RouteCollectorProxy;
 
@@ -25,5 +26,12 @@ return function(App $app)
         $group->get('/pages/create', [PageController::class, 'create']);
         $group->post('/pages/create', [PageController::class, 'store']);
         $group->post('/pages/delete/{id:[0-9]+}', [PageController::class, 'delete']);
+
+        $group->get('/menu', [MenuController::class, 'index']);
+        $group->get('/menu/{id:[0-9]+}', [MenuController::class, 'show']);
+        $group->post('/menu/{id:[0-9]+}', [MenuController::class, 'update']);
+        $group->get('/menu/create', [MenuController::class, 'create']);
+        $group->post('/menu/create', [MenuController::class, 'store']);
+        $group->post('/menu/delete/{id:[0-9]+}', [MenuController::class, 'delete']);
     })->add(new RedirectIfNotAdminMiddleware());
 };
