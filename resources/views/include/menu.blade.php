@@ -1,10 +1,13 @@
 <ul class="navbar-nav">
-    <li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
-    <li class="nav-item"><a class="nav-link" href="/about">О компании</a></li>
-    @if (\App\Support\Auth::guest())
-        <li class="nav-item"><a class="nav-link" href="/register">Регистрация</a></li>
-        <li class="nav-item"><a class="nav-link" href="/login">Вход</a></li>
-    @else
-        <li class="nav-item"><a class="nav-link" href="/logout">Выход</a></li>
+    @if($menu && is_array($menu) && count($menu) > 0)
+        @foreach($menu as $item)
+            @if(($item['link'] == '/register' || $item['link'] == '/login') && !\App\Support\Auth::guest())
+                @continue
+            @endif
+            @if($item['link'] == '/logout' && \App\Support\Auth::guest())
+                @continue
+            @endif
+            <li class="nav-item"><a class="nav-link" href="{{ $item['link'] }}">{{ $item['title'] }}</a></li>
+        @endforeach
     @endif
 </ul>
