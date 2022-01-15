@@ -187,3 +187,30 @@ if (!function_exists('csrf_html'))
         echo $html;
     };
 }
+
+if (!function_exists('pagination'))
+{
+    function pagination(object $obj): void
+    {
+        $html = '';
+        $items = $obj->linkCollection();
+        if (count($items) > 3)
+        {
+            $html .= '<ul class="pagination">';
+            foreach ($items as $item)
+            {
+                $label = $item['label'];
+                if ($item['label'] === 'Previous') $label = 'Назад';
+                if ($item['label'] === 'Next') $label = 'Вперед';
+                $liClass = 'page-item';
+                if ($item['active']) $liClass .= ' active';
+                if (!$item['url']) $liClass .= ' disabled';
+                $html .= '<li class="'.$liClass.'">';
+                $html .= '<a class="page-link" href="'.$item['url'].'">'.$label.'</a>';
+                $html .= '</li>';
+            }
+            $html .= '</ul>';
+        }
+        echo $html;
+    };
+}

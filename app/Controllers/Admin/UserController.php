@@ -9,23 +9,8 @@ class UserController extends Controller
 {
     public function index($response)
     {
-        if (config('app.cache.enable'))
-        {
-            if ($this->cache->get('users'))
-            {
-                $users = $this->cache->get('users');
-            }
-            else
-            {
-                $users = User::all()->toArray();
-                $this->cache->set('users', $users);
-            }
-        }
-        else
-        {
-            $users = User::all()->toArray();
-        }
-
+        $users = User::paginate(15);
+        $users->withPath(config('admin.path').'/users');
         $title = 'Список пользователей';
         $success = $this->session->getFlashBag()->get('success');
         $errors = $this->session->getFlashBag()->get('errors');

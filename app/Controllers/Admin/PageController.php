@@ -9,23 +9,8 @@ class PageController extends Controller
 {
     public function index($response)
     {
-        if (config('app.cache.enable'))
-        {
-            if ($this->cache->get('pages'))
-            {
-                $pages = $this->cache->get('pages');
-            }
-            else
-            {
-                $pages = Page::all()->toArray();
-                $this->cache->set('pages', $pages);
-            }
-        }
-        else
-        {
-            $pages = Page::all()->toArray();
-        }
-
+        $pages = Page::paginate(15);
+        $pages->withPath(config('admin.path').'/pages');
         $title = 'Список страниц';
         $success = $this->session->getFlashBag()->get('success');
         $errors = $this->session->getFlashBag()->get('errors');

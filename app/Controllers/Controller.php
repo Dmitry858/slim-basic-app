@@ -5,6 +5,7 @@ namespace App\Controllers;
 use Slim\App;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\Support\View;
+use Illuminate\Pagination\Paginator;
 
 class Controller
 {
@@ -22,6 +23,10 @@ class Controller
         $this->csrfValueKey = $csrf->getTokenValueKey();
         $this->session = $app->getContainer()->get('session');
         $this->cache = $app->getContainer()->get('cache');
+
+        Paginator::currentPageResolver(function ($pageName = 'page') {
+            return (int) ($_GET[$pageName] ?? 1);
+        });
     }
 
     protected function getCsrf($request): array
